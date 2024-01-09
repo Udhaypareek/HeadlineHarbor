@@ -14,6 +14,7 @@ export default class News extends Component {
   static propTypes = {
     country: PropTypes.string,
     pageSize: PropTypes.number, 
+    apiKey: PropTypes.string, 
     category: PropTypes.string,
   }
   capitalizeFirstLetter = (string)=> {
@@ -35,6 +36,9 @@ export default class News extends Component {
 }
 async updateNews(){
   this.props.setProgress(10);
+  // console.log(this.props.apiKey);
+  // console.log(process.env.REACT_APP_NEWS_API);
+  // console.log(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`);
   const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apikey=5687a4fce24941f58504185b70dd7113&page=${this.state.page}&pageSize=${this.props.pageSize}`;
   this.setState({ loading: true });
   let data = await fetch(url);
