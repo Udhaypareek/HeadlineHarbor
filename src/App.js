@@ -14,7 +14,7 @@ export default function App () {
           <Navbar />
           <LoadingBar
           height={3}
-          color='#f11946'
+          color='#1abc9c' // Teal shade color
           progress={progress}
           />
           <Routes>

@@ -3,6 +3,7 @@ import Newsitem from './Newsitem';
 import Spinner from './Spinner';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import TypingEffect from './TypingEffect';
 
 export default function News(props) {
   
@@ -15,7 +16,7 @@ const [page, setPage] = useState(1);
 const [totalResults, setTotalResults] = useState(0);
 
 useEffect(()=>{
-  document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`
+  document.title = `${capitalizeFirstLetter(props.category)} - HeadlineHarbor`
   updateNews();
   // eslint-disable-next-line
 },[])
@@ -37,22 +38,33 @@ const updateNews= async ()=>{
   props.setProgress(100);
 }
 const fetchMoreData = async () => {
-  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=5687a4fce24941f58504185b70dd7113&page=${page}&pageSize=${props.pageSize}`;
-  setPage(page + 1);
-  let data = await fetch(url);
-  let parsedData = await data.json();
-  setarticles(articles.concat(parsedData.articles));
-  setTotalResults(parsedData.totalResults);
+  const nextPage = page + 1;
+  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=5687a4fce24941f58504185b70dd7113&page=${nextPage}&pageSize=${props.pageSize}`;
+  
+  try {
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    setPage(nextPage);
+    setarticles(prevArticles => [...prevArticles, ...parsedData.articles]);
+    // prevArticles holds the previous state value of articles.
+    // [...prevArticles, ...parsedData.articles] creates a new array by spreading the previous articles and
+    //  appending the newly fetched articles (parsedData.articles) to it.
+    setTotalResults(parsedData.totalResults);
+  } catch (error) {
+    console.error("Error fetching more data:", error);
+  }
 };
+
     return (
         <>
-        <h1 className="text-center" style={{ margin: '35px 0px' }}>NewsMonkey - Top {capitalizeFirstLetter(props.category)} Headlines</h1>
+          <h1 className="text-center" style={{ margin: '35px 0px' }}><TypingEffect text={`HeadlineHarbor - Top ${capitalizeFirstLetter(props.category)} Headlines`} speed={40} /></h1>
           {loading && <Spinner/>}
           <InfiniteScroll
             dataLength={articles.length} //This is important field to render the next data
             next={fetchMoreData}
             hasMore={articles.length !== totalResults}
             loader={<Spinner/>}
+            style={{overflow:"hidden"}}
             >
           <div className="container">
           <div className="row">
