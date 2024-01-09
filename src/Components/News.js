@@ -17,6 +17,7 @@ const [totalResults, setTotalResults] = useState(0);
 useEffect(()=>{
   document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`
   updateNews();
+  // eslint-disable-next-line
 },[])
 
 const updateNews= async ()=>{
