@@ -25,8 +25,8 @@ const updateNews= async ()=>{
   props.setProgress(10);
   // console.log(props.apiKey);
   // console.log(process.env.REACT_APP_NEWS_API);
-  // console.log(`/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apiKey}&page=${this.state.page}&pageSize=${props.pageSize}`);
-  const url = `/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${page}&pageSize=${props.pageSize}`;
+  // console.log(`https://newsapi.org/v2https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apiKey}&page=${this.state.page}&pageSize=${props.pageSize}`);
+  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${page}&pageSize=${props.pageSize}`;
   setloading(true);
   let data = await fetch(url);
   props.setProgress(30);
@@ -39,10 +39,19 @@ const updateNews= async ()=>{
 }
 const fetchMoreData = async () => {
   const nextPage = page + 1;
-  const url = `/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${nextPage}&pageSize=${props.pageSize}`;
+  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${nextPage}&pageSize=${props.pageSize}`;
   
   try {
-    let data = await fetch(url);
+    let data = await fetch(url, {
+      method: 'GET', // Change this to the appropriate HTTP method (GET, POST, etc.)
+      // headers: {
+      //   'Origin': 'https://your-website.com', // Specify your website's origin
+      //   'Content-Type': 'application/json', // Specify the Content-Type if sending data
+      //   // Add any other custom headers as needed
+      // },
+      mode: 'cors', // This ensures that CORS is enforced
+      credentials: 'include', // Include credentials such as cookies if necessary
+    });
     let parsedData = await data.json();
     setPage(nextPage);
     setarticles(prevArticles => [...prevArticles, ...parsedData.articles]);

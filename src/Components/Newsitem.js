@@ -30,7 +30,7 @@ export default function Newsitem(props) {
             <p className="card-text">
               <small className="text-muted">
                 By {!author ? "Unknown" : author} on{" "}
-                {new Date(date).toGMTString()}
+                { new Date(date).toGMTString()}
               </small>
             </p>
             <a
