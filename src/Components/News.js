@@ -7,7 +7,6 @@ import TypingEffect from './TypingEffect';
 
 export default function News(props) {
 
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
   
 const capitalizeFirstLetter = (string)=> {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -28,9 +27,9 @@ const updateNews= async ()=>{
   // console.log(props.apiKey);
   // console.log(process.env.REACT_APP_NEWS_API);
   // console.log(`apiapi/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apiKey}&page=${this.state.page}&pageSize=${props.pageSize}`);
-  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${page}&pageSize=${props.pageSize}`;
+  const url = `https://headlineharbor-backend.onrender.com/top-headlines?country=${props.country}&category=${props.category}&page=${page}&pageSize=${props.pageSize}`;
   setloading(true);
-  let data = await fetch(proxyurl + url);
+  let data = await fetch(url);
   props.setProgress(30);
   let parsedData = await data.json();
   props.setProgress(70);
@@ -41,10 +40,10 @@ const updateNews= async ()=>{
 }
 const fetchMoreData = async () => {
   const nextPage = page + 1;
-  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${process.env.REACT_APP_NEWS_API}&page=${nextPage}&pageSize=${props.pageSize}`;
+  const url = `https://headlineharbor-backend.onrender.com/top-headlines?country=${props.country}&category=${props.category}&page=${nextPage}&pageSize=${props.pageSize}`;
   
   try {
-    let data = await fetch(proxyurl + url);
+    let data = await fetch(url);
     let parsedData = await data.json();
     setPage(nextPage);
     setarticles(prevArticles => [...prevArticles, ...parsedData.articles]);
