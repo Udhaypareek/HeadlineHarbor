@@ -44,11 +44,11 @@ const fetchMoreData = async () => {
   try {
     let data = await fetch(url, {
       method: 'GET', // Change this to the appropriate HTTP method (GET, POST, etc.)
-      // headers: {
-      //   'Origin': 'https://your-website.com', // Specify your website's origin
-      //   'Content-Type': 'application/json', // Specify the Content-Type if sending data
-      //   // Add any other custom headers as needed
-      // },
+      headers: {
+        'Origin': 'https://your-website.com', // Specify your website's origin
+        'Content-Type': 'application/json', // Specify the Content-Type if sending data
+        // Add any other custom headers as needed
+      },
       mode: 'cors', // This ensures that CORS is enforced
       credentials: 'include', // Include credentials such as cookies if necessary
     });
