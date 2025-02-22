@@ -24,10 +24,8 @@ useEffect(()=>{
 
 const updateNews= async ()=>{
   props.setProgress(10);
-  // console.log(props.apiKey);
-  // console.log(process.env.REACT_APP_NEWS_API);
-  // console.log(`apiapi/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apiKey}&page=${this.state.page}&pageSize=${props.pageSize}`);
-  const url = `https://headlineharbor-backend.onrender.com/top-headlines?country=${props.country}&category=${props.category}&page=${page}&pageSize=${props.pageSize}`;
+  // const url = `http://localhost:5000/top-headlines?country=${props.country}&category=${props.category}&page=${page}&pageSize=${props.pageSize}`;
+  const url = `https://headline-harbor-backend.vercel.app/top-headlines?country=${props.country}&category=${props.category}&page=${page}&pageSize=${props.pageSize}`;
   setloading(true);
   let data = await fetch(url);
   props.setProgress(30);
@@ -40,7 +38,8 @@ const updateNews= async ()=>{
 }
 const fetchMoreData = async () => {
   const nextPage = page + 1;
-  const url = `https://headlineharbor-backend.onrender.com/top-headlines?country=${props.country}&category=${props.category}&page=${nextPage}&pageSize=${props.pageSize}`;
+  // const url = `https://headlineharbor-backend.onrender.com/top-headlines?country=${props.country}&category=${props.category}&page=${nextPage}&pageSize=${props.pageSize}`;
+  const url = `https://headline-harbor-backend.vercel.app/top-headlines?country=${props.country}&category=${props.category}&page=${page}&pageSize=${props.pageSize}`;
   
   try {
     let data = await fetch(url);

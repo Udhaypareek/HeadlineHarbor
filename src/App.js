@@ -17,7 +17,7 @@ export default function App () {
           progress={progress}
           />
           <Routes>
-            <Route exact path='/' element={<News setProgress={setProgress} key="general" pageSize={9} country="in" category="general" />} />
+            <Route exact path='/' element={<News setProgress={setProgress} key="general" pageSize={9} country="us" category="general" />} />
             <Route exact path='/business' element={<News setProgress={setProgress} key="business" pageSize={9} country="in" category="business" />} />
             <Route exact path='/entertainment' element={<News setProgress={setProgress} key="entertainment" pageSize={9} country="in" category="entertainment" />} />
             <Route exact path='/general' element={<News setProgress={setProgress} key="general" pageSize={9} country="in" category="general" />} />
